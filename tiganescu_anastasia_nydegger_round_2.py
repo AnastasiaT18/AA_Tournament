@@ -29,6 +29,8 @@ def strategy_round_2(opponent_id: int, my_history: dict[int, list[int]],
                 break
         if not empty:
             for opp_id, opp_hist in opponents_history.items():
+                if len(my_history[opp_id]) == 0 or len(opponents_history[opp_id]) == 0:
+                    continue
                 score = sum(payoff[(m, o)] for m, o in zip(my_history[opp_id], opponents_history[opp_id])) / len(my_history[opp_id])
 
                 coop_rate = opponents_history[opp_id].count(1) / len(opponents_history[opp_id])
@@ -50,6 +52,8 @@ def strategy_round_2(opponent_id: int, my_history: dict[int, list[int]],
         A += weights[i] * points
 
     for opp_id, opp_hist in opponents_history.items():
+        if len(my_history[opp_id]) == 0 or len(opponents_history[opp_id]) == 0:
+            continue
         score = sum(payoff[(m, o)] for m, o in zip(my_history[opp_id], opponents_history[opp_id])) / len(my_history[opp_id])
         coop_rate = opponents_history[opp_id].count(1) / len(opponents_history[opp_id])
         score += 10 * coop_rate
